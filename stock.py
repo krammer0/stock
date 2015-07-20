@@ -190,14 +190,16 @@ class StockFinder:
         #for stock_num in self.all_stock_list:
         #    print stock_num
     def algo0(self, stock, file):
+    	if FETCH_DAY < 60:
+		print 'cant run 3 month ago data'
         #print stock.lowest_data(fetch_day, 1).date.rstrip()
-        lowest_data = stock.lowest_data(len(stock.day_data) - 1, 0, CLOSE_FIRST)
+        3rd_month_lowest_data = stock.lowest_data(59, 40, CLOSE_FIRST)
         #print lowest_data.date.rstrip()
-        next_lowest_data = stock.lowest_data(lowest_data.day_num - 10, 1, CLOSE_FIRST)
-        if next_lowest_data != None:
+        1st_month_lowest_data = stock.lowest_data(19, 0, CLOSE_FIRST)
+        if 3rd_month_lowest_data.close < 1st_month_lowest_data.close:
             print stock.stock_name
-            print lowest_data.date.rstrip()
-            print next_lowest_data.date.rstrip()
+            print 3rd_month_lowest_data.date.rstrip()
+            print 1st_month_lowest_data.date.rstrip()
             file.write("<a href=\"http://www.cmoney.tw/finance/f00025.aspx?s=" + stock.stock_num + "\">" + stock.stock_name + "</a><br>\n")
     def algo1(self, stock, file):
        #print stock.lowest_data(fetch_day, 1).date.rstrip()
